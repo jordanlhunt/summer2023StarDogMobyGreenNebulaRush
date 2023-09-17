@@ -14,6 +14,7 @@ namespace summer2023StarDogMobyGreenNebulaRush
         SpriteFont spaceFont;
         Player player = new Player();
         Asteroid asteroid = new Asteroid(200);
+        GameController gameController = new GameController();
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -43,6 +44,11 @@ namespace summer2023StarDogMobyGreenNebulaRush
             }
             player.Update(gameTime);
             asteroid.Update(gameTime);
+            gameController.Update(gameTime);
+            foreach (Asteroid gameControllerAsteroid in gameController.astroidsList)
+            {
+                gameControllerAsteroid.Update(gameTime);
+            }
             base.Update(gameTime);
         }
         protected override void Draw(GameTime gameTime)
@@ -52,6 +58,11 @@ namespace summer2023StarDogMobyGreenNebulaRush
             _spriteBatch.Draw(backgroundTexture, Vector2.Zero, Color.White);
             _spriteBatch.Draw(shipTexture, new Vector2(player.position.X - (shipTexture.Width / 2), player.position.Y - (shipTexture.Height) / 2), Color.White);
             _spriteBatch.Draw(asteriodTexture, new Vector2(asteroid.position.X - (asteriodTexture.Width / 2), asteroid.position.Y - (asteriodTexture.Height / 2)), Color.White);
+
+            foreach (Asteroid gameControllerAsteroid in gameController.astroidsList)
+            {
+                _spriteBatch.Draw(asteriodTexture, new Vector2(gameControllerAsteroid.position.X - (asteriodTexture.Width / 2), gameControllerAsteroid.position.Y - (asteriodTexture.Height / 2)), Color.White); ;
+            }
 
             _spriteBatch.End();
             base.Draw(gameTime);
